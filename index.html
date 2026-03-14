@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Metabolic Movement Guide — Sarah Levine, DPT Student</title>
+  <meta name="description" content="Free guide: 5 evidence-based strategies to improve your metabolism, build real-world performance, and create sustainable wellness." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #f7f4ee;
+      --cream-dark: #ede9df;
+      --ink: #1a1714;
+      --ink-muted: #5a5650;
+      --ink-faint: #9a958e;
+      --sage: #7a8c6e;
+      --sage-light: #e8ede4;
+      --sage-mid: #c2ceba;
+      --border: rgba(26,23,20,0.12);
+      --border-strong: rgba(26,23,20,0.22);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* ── NOISE TEXTURE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── HEADER / HERO ── */
+    header {
+      padding: 5rem 0 4rem;
+      position: relative;
+    }
+
+    .eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--sage);
+      font-weight: 500;
+      margin-bottom: 1.25rem;
+      display: block;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(42px, 8vw, 68px);
+      font-weight: 300;
+      line-height: 1.08;
+      color: var(--ink);
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    h1 em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--sage);
+    }
+
+    .hero-sub {
+      font-size: 17px;
+      color: var(--ink-muted);
+      max-width: 540px;
+      line-height: 1.75;
+      margin-bottom: 2rem;
+    }
+
+    .author-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .author-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--sage-light);
+      border: 1px solid var(--sage-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-style: italic;
+      color: var(--sage);
+      flex-shrink: 0;
+    }
+
+    .author-text {
+      font-size: 13px;
+      color: var(--ink-muted);
+    }
+
+    .author-text strong {
+      display: block;
+      font-weight: 500;
+      font-size: 14px;
+      color: var(--ink);
+    }
+
+    /* ── RULED DIVIDER ── */
+    .rule {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 3rem 0;
+    }
+
+    .rule-double {
+      border: none;
+      border-top: 3px double var(--border-strong);
+      margin: 3.5rem 0;
+    }
+
+    /* ── SECTION LABELS ── */
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+
+    /* ── WHAT'S INSIDE ── */
+    .guide-items {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .guide-item {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 0 20px;
+      padding: 1.75rem 0;
+      border-bottom: 1px solid var(--border);
+      align-items: start;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .guide-item.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .guide-item:first-child { border-top: 1px solid var(--border); }
+
+    .guide-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 40px;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--sage-mid);
+      line-height: 1;
+      padding-top: 4px;
+    }
+
+    .guide-item-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+
+    .guide-item-desc {
+      font-size: 14px;
+      color: var(--ink-muted);
+      line-height: 1.7;
+    }
+
+    /* ── WHO IT'S FOR ── */
+    .who-box {
+      background: var(--sage-light);
+      border: 1px solid var(--sage-mid);
+      border-radius: 2px;
+      padding: 2rem 2rem 2rem;
+    }
+
+    .who-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .who-list li {
+      display: flex;
+      gap: 12px;
+      font-size: 15px;
+      color: var(--ink-muted);
+      line-height: 1.55;
+      align-items: flex-start;
+    }
+
+    .who-list li::before {
+      content: '—';
+      color: var(--sage);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ── ABOUT SARAH ── */
+    .about-box {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 1.75rem;
+      border: 1px solid var(--border-strong);
+      background: white;
+      border-radius: 2px;
+    }
+
+    .about-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--sage-light);
+      border: 1px solid var(--sage-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-style: italic;
+      color: var(--sage);
+      flex-shrink: 0;
+    }
+
+    .about-text strong {
+      display: block;
+      font-weight: 500;
+      font-size: 15px;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+
+    .about-text p {
+      font-size: 14px;
+      color: var(--ink-muted);
+      line-height: 1.7;
+    }
+
+    /* ── FORM SECTION ── */
+    .form-section {
+      background: var(--ink);
+      color: var(--cream);
+      padding: 3rem;
+      border-radius: 2px;
+      margin: 3rem 0;
+    }
+
+    .form-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(28px, 5vw, 38px);
+      font-weight: 300;
+      line-height: 1.2;
+      color: var(--cream);
+      margin-bottom: 0.75rem;
+    }
+
+    .form-headline em { font-style: italic; }
+
+    .form-sub {
+      font-size: 14px;
+      color: rgba(247,244,238,0.6);
+      margin-bottom: 2rem;
+      line-height: 1.65;
+    }
+
+    .form-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 14px 16px;
+      background: rgba(247,244,238,0.08);
+      border: 1px solid rgba(247,244,238,0.2);
+      border-radius: 2px;
+      font-family: 'Jost', sans-serif;
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--cream);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-input::placeholder { color: rgba(247,244,238,0.35); }
+    .form-input:focus { border-color: rgba(247,244,238,0.5); }
+
+    .form-btn {
+      width: 100%;
+      padding: 16px;
+      background: var(--sage);
+      border: none;
+      border-radius: 2px;
+      font-family: 'Jost', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      color: white;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: background 0.2s, transform 0.1s;
+      margin-top: 4px;
+    }
+
+    .form-btn:hover { background: #6a7a5e; }
+    .form-btn:active { transform: scale(0.99); }
+
+    .form-fine {
+      font-size: 12px;
+      color: rgba(247,244,238,0.35);
+      text-align: center;
+      margin-top: 12px;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── SUCCESS STATE ── */
+    .success-state {
+      display: none;
+      text-align: center;
+      padding: 1rem 0;
+    }
+
+    .success-check {
+      font-size: 40px;
+      margin-bottom: 1rem;
+      color: var(--sage);
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+    }
+
+    .success-state h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--cream);
+      margin-bottom: 0.75rem;
+    }
+
+    .success-state p {
+      font-size: 14px;
+      color: rgba(247,244,238,0.6);
+      line-height: 1.65;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2.5rem 0 3rem;
+      text-align: center;
+    }
+
+    .footer-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--ink-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-links {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+
+    .footer-links a {
+      color: var(--sage);
+      text-decoration: none;
+    }
+
+    .footer-links a:hover { text-decoration: underline; }
+
+    /* ── FADE-IN ANIMATION ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    .hero-content {
+      animation: fadeUp 0.7s ease both;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 540px) {
+      header { padding: 3.5rem 0 3rem; }
+      .form-section { padding: 2rem 1.5rem; }
+      .about-box { flex-direction: column; gap: 14px; }
+      .guide-item { grid-template-columns: 44px 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── HERO ── -->
+  <div class="container">
+    <header>
+      <div class="hero-content">
+        <span class="eyebrow">Free guide · Sarah Levine, DPT Student</span>
+        <h1>The <em>Metabolic<br>Movement</em><br>Starter Guide</h1>
+        <p class="hero-sub">5 evidence-based strategies to improve your metabolism, build real-world performance, and create sustainable wellness — from a PT student who reversed metabolic syndrome through the science of movement.</p>
+        <div class="author-row">
+          <div class="author-avatar">SL</div>
+          <div class="author-text">
+            <strong>Sarah Levine</strong>
+            DPT Student · Elon University · Lost 100+ lbs · Reversed metabolic syndrome
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <hr class="rule-double" />
+
+    <!-- ── WHAT'S INSIDE ── -->
+    <section>
+      <span class="section-label">What's inside the guide</span>
+      <div class="guide-items">
+
+        <div class="guide-item">
+          <span class="guide-num">1</span>
+          <div>
+            <p class="guide-item-title">Why exercise is the most powerful metabolic drug — and how to dose it correctly</p>
+            <p class="guide-item-desc">The clinical breakdown of how different types of movement affect insulin sensitivity, body composition, and metabolic markers. Not what fitness culture tells you — what the research actually says.</p>
+          </div>
+        </div>
+
+        <div class="guide-item">
+          <span class="guide-num">2</span>
+          <div>
+            <p class="guide-item-title">The movement hierarchy: what to prioritize and in what order</p>
+            <p class="guide-item-desc">Strength, cardio, mobility, and NEAT — a PT-informed framework for building a routine that actually changes your metabolism, not just your calorie burn.</p>
+          </div>
+        </div>
+
+        <div class="guide-item">
+          <span class="guide-num">3</span>
+          <div>
+            <p class="guide-item-title">The metabolic wellness triad: sleep, stress, and movement</p>
+            <p class="guide-item-desc">How cortisol, sleep quality, and physical activity interact to either drive or derail metabolic health — and practical levers you can pull on each one.</p>
+          </div>
+        </div>
+
+        <div class="guide-item">
+          <span class="guide-num">4</span>
+          <div>
+            <p class="guide-item-title">How to train for performance — not just weight loss</p>
+            <p class="guide-item-desc">The mindset and method shift that changed everything: building toward what your body can do, not just what it weighs. Includes a beginner performance framework you can start this week.</p>
+          </div>
+        </div>
+
+        <div class="guide-item">
+          <span class="guide-num">5</span>
+          <div>
+            <p class="guide-item-title">Sarah's personal metabolic reset protocol</p>
+            <p class="guide-item-desc">The exact progression she used to build a movement practice during 100 lbs of weight loss — adaptable to any starting point, no gym required.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <!-- ── WHO IT'S FOR ── -->
+    <section>
+      <span class="section-label">This guide is for you if...</span>
+      <div class="who-box">
+        <ul class="who-list">
+          <li>You've been told your metabolic markers are heading in the wrong direction and don't know where to start with movement</li>
+          <li>You're exercising but not seeing the metabolic or body composition changes you expected</li>
+          <li>You want to build real performance — strength, endurance, function — not just lose weight</li>
+          <li>You want science-backed answers, not influencer advice or fad programs</li>
+          <li>You're ready to invest in your long-term health, not just a short-term fix</li>
+        </ul>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <!-- ── ABOUT SARAH ── -->
+    <section>
+      <span class="section-label">From Sarah</span>
+      <div class="about-box">
+        <div class="about-avatar">SL</div>
+        <div class="about-text">
+          <strong>Sarah Levine — DPT Student, Elon University</strong>
+          <p>I built this guide around what I needed when I started — and what I now know as a DPT student. It's the clinical knowledge I wish existed in plain language when I was reversing my own metabolic syndrome. Every strategy in here is one I've used personally and can back with evidence. I graduate in December 2026 and will be licensed in NC and compact states by February 2027.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ── FORM ── -->
+  <div class="container">
+    <div class="form-section" id="form-section">
+      <div id="form-inner">
+        <h2 class="form-headline">Get the free guide<br><em>delivered to your inbox</em></h2>
+        <p class="form-sub">Enter your name and email — the guide arrives instantly. You'll also get my weekly movement and metabolic health tips, only shared by email.</p>
+        <div class="form-fields">
+          <input class="form-input" type="text" id="fname" placeholder="Your first name" autocomplete="given-name" />
+          <input class="form-input" type="email" id="femail" placeholder="Your email address" autocomplete="email" />
+          <button class="form-btn" onclick="handleSubmit()">Send me the free guide →</button>
+        </div>
+        <p class="form-fine">Free. No credit card. Unsubscribe anytime.</p>
+      </div>
+      <div class="success-state" id="success-state">
+        <div class="success-check">✓</div>
+        <h3>You're in — check your inbox.</h3>
+        <p>The Metabolic Movement Guide is on its way. While you wait, come find me on TikTok <strong>@sarahlevinedpt</strong> — I post movement and metabolic health content a few times a week.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FOOTER ── -->
+  <div class="container">
+    <footer>
+      <p class="footer-name">Sarah Levine</p>
+      <p class="footer-links">
+        DPT Student · Elon University &nbsp;·&nbsp;
+        <a href="https://tiktok.com/@sarahlevinedpt" target="_blank">@sarahlevinedpt</a>
+      </p>
+    </footer>
+  </div>
+
+  <script>
+    // Scroll-triggered fade in for guide items
+    const items = document.querySelectorAll('.guide-item');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    items.forEach(item => observer.observe(item));
+
+    // Form submit handler
+    function handleSubmit() {
+      var name = document.getElementById('fname').value.trim();
+      var email = document.getElementById('femail').value.trim();
+      var emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      if (!name) { alert('Please enter your first name.'); return; }
+      if (!emailValid) { alert('Please enter a valid email address.'); return; }
+      document.getElementById('form-inner').style.display = 'none';
+      document.getElementById('success-state').style.display = 'block';
+      // TODO: Replace this with your Kit (ConvertKit) embed form action URL
+      // to actually capture emails into your list
+    }
+  </script>
+
+</body>
+</html>
