@@ -532,12 +532,14 @@
   <!-- ── FORM ── -->
   <div class="container">
     <div class="form-section" id="form-section">
-      <h2 class="form-headline">Get the free guide<br><em>delivered to your inbox</em></h2>
-      <p class="form-sub">Enter your name and email — the guide arrives instantly. You'll also get my weekly movement and metabolic health tips, only shared by email.</p>
-      <div style="margin-top: 1.5rem; overflow: hidden;">
-        <iframe width="540" height="305" src="https://14b0a39c.sibforms.com/serve/MUIFANouJkfvEhyQ8EfpdwxB8nBrC72WNp8HeEIlVScPb5AyZJz_eGfxN2y5BCd2Y47zC6oz8egem9WwtoZ-LTOzTd9H4Ub-VLsajSmz23a29t7x2V06doIVzSPyivLK7UEZC6CEjyPOm_ROw3uqm8-ZEGJ3iENAHWT28m6NnAJb_Ypty6C7G83roGMqRErUyItCBf3pTRifrOePhg==" frameborder="0" scrolling="auto" allowfullscreen style="display: block; margin-left: auto; margin-right: auto; max-width: 100%;"></iframe>
+      <h2 class="form-headline">Get the free guide<br><em>delivered instantly</em></h2>
+      <p class="form-sub">Enter your name and email and you'll go straight to your download page.</p>
+      <div class="form-fields">
+        <input class="form-input" type="text" id="fname" placeholder="Your first name" autocomplete="given-name" />
+        <input class="form-input" type="email" id="femail" placeholder="Your email address" autocomplete="email" />
+        <button class="form-btn" onclick="handleSubmit()">Get the free guide →</button>
       </div>
-      <p class="form-fine" style="margin-top: 1rem;">Free. No credit card. Unsubscribe anytime.</p>
+      <p class="form-fine">Free. No credit card. Unsubscribe anytime.</p>
     </div>
   </div>
 
@@ -553,7 +555,6 @@
   </div>
 
   <script>
-    // Scroll-triggered fade in for guide items
     const items = document.querySelectorAll('.guide-item');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
@@ -565,17 +566,13 @@
     }, { threshold: 0.1 });
     items.forEach(item => observer.observe(item));
 
-    // Form submit handler
     function handleSubmit() {
       var name = document.getElementById('fname').value.trim();
       var email = document.getElementById('femail').value.trim();
       var emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
       if (!name) { alert('Please enter your first name.'); return; }
       if (!emailValid) { alert('Please enter a valid email address.'); return; }
-      document.getElementById('form-inner').style.display = 'none';
-      document.getElementById('success-state').style.display = 'block';
-      // TODO: Replace this with your Kit (ConvertKit) embed form action URL
-      // to actually capture emails into your list
+      window.location.href = 'download.html?name=' + encodeURIComponent(name);
     }
   </script>
 
